@@ -6,7 +6,9 @@ import org.quartz.*;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.Date;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.TimeZone;
 import java.util.UUID;
 
 @Configuration
@@ -21,7 +23,6 @@ public class QuartzConfiguration {
                 .withIdentity(UUID.randomUUID().toString(), "email-jobs")
                 .withDescription("Send email job")
                 .usingJobData(jobDataMap)
-                .storeDurably()
                 .build();
     }
 
@@ -30,8 +31,7 @@ public class QuartzConfiguration {
                 .forJob(jobDetail)
                 .withIdentity(jobDetail.getKey().getName(), "email-triggers")
                 .withIdentity("Send email trigger")
-                .startAt(Date.from(dateTime.toInstant()))
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withMisfireHandlingInstructionFireNow())
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 * * ? * *").inTimeZone(TimeZone.getTimeZone(ZoneId.of("Europe/London"))))
                 .build();
     }
 }

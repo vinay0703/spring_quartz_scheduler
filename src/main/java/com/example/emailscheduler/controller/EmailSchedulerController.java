@@ -1,6 +1,7 @@
 package com.example.emailscheduler.controller;
 
 import com.example.emailscheduler.config.QuartzConfiguration;
+import com.example.emailscheduler.listener.EmailTriggerListener;
 import com.example.emailscheduler.request.EmailRequest;
 import com.example.emailscheduler.response.EmailResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class EmailSchedulerController {
             }
             JobDetail jobDetail = quartzConfiguration.buildJobDetail(emailRequest);
             Trigger trigger = quartzConfiguration.buildTrigger(jobDetail, dateTime);
+            scheduler.getListenerManager().addTriggerListener(new EmailTriggerListener());
             scheduler.scheduleJob(jobDetail, trigger);
             EmailResponse emailResponse = new EmailResponse(true, jobDetail.getKey().getName(), jobDetail.getKey().getGroup(), "Email scheduled successfully!");
             return ResponseEntity.ok(emailResponse);
