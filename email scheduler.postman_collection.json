@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "6b2b57dd-794a-45f6-8e8b-b0f3a1a9feab",
+		"name": "email scheduler",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21380410"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"vinaymaxwell0703@gmail.com\",\n    \"subject\": \"1 leetcode a day keeps employeement away\",\n    \"body\": \"reverse a linked list using recursion\",\n    \"dateTime\": \"2023-09-26T10:57:00\",\n    \"timeZone\": \"Asia/Kolkata\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/schedule/email",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"schedule",
+						"email"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
