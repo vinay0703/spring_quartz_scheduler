@@ -31,7 +31,8 @@ public class EmailJob extends QuartzJobBean {
         String body = jobDataMap.getString("body");
         String recipientEmail = jobDataMap.getString("email");
 
-        sendEmail(mailProperties.getUsername(), recipientEmail, subject, body);
+//        sendEmail(mailProperties.getUsername(), recipientEmail, subject, body);
+        System.out.println("Job Executed");
     }
 
     private void sendEmail(String fromEmail, String toEmail, String subject, String body){

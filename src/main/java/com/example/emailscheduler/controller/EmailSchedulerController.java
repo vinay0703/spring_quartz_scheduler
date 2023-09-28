@@ -33,9 +33,10 @@ public class EmailSchedulerController {
                 EmailResponse emailResponse = new EmailResponse(false, "dateTime must be after current time.");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(emailResponse);
             }
-            JobDetail jobDetail = quartzConfiguration.buildJobDetail(emailRequest);
-            Trigger trigger = quartzConfiguration.buildTrigger(jobDetail, dateTime);
-            scheduler.scheduleJob(jobDetail, trigger);
+            JobDetail jobDetail = null;
+                jobDetail = quartzConfiguration.buildJobDetail(emailRequest);
+                Trigger trigger = quartzConfiguration.buildTrigger(jobDetail, dateTime);
+                scheduler.scheduleJob(jobDetail, trigger);
             EmailResponse emailResponse = new EmailResponse(true, jobDetail.getKey().getName(), jobDetail.getKey().getGroup(), "Email scheduled successfully!");
             return ResponseEntity.ok(emailResponse);
         } catch(SchedulerException se){
